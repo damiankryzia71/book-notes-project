@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%=locals.data.title%></title>
+        <link rel="stylesheet" href="css/compiled/details.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://api.fontshare.com/v2/css?f[]=satoshi@500&display=swap"
+            rel="stylesheet">
+        <link rel="icon" href="icons/favicon.ico">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <form action="/" method="GET">
+                    <button type="submit" id="home-button">
+                        Home
+                    </button>
+                </form>
+            </nav>
+        </header>
+        <main>
+            <section class="container">
+                <article class="title">
+                    <%= locals.data.title %>
+                </article>
+                <article class="cover" id="<%=locals.data.isbn%>">
+                    <div class="spinner"></div>
+                </article>
+                <article class="description"><%= locals.data.description %></article>
+                <section class="info-group">
+                    <article class="info">
+                        Author: <%= locals.data.author %>
+                    </article>
+                    <article class="info">
+                        ISBN: <%= locals.data.isbn %>
+                    </article>
+                    <article class="info">
+                        Pages: <%= locals.data.pages %>
+                    </article>
+                </section>
+                <section class="notes-container">
+                    <article class="notes-header">My Notes</article>
+                    <article class="notes"><%= locals.data.notes %></article>
+                </section>
+                <a href="/edit/<%=locals.data.id%>" class="edit-button"><button>Edit</button></a>
+            </section>
+        </main>
+        <%- include("../footer/footer.ejs") %>
+        <script type="text/javascript">
+            //Fetch book cover image
+            window.addEventListener("load", async (event) => {
+                const entryCover = document.querySelector(".cover");
+                const isbn = entryCover.getAttribute("id");
+                const response = await fetch(`https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`);
+                if (response.status === 404) {
+                    const spinner = entryCover.children.item(0);
+                    spinner.classList.remove("spinner");
+                    spinner.classList.add("error-message");
+                    spinner.textContent = "Whoops! Couldn't load image :(";
+                }
+                else {
+                    const blob = await response.blob();
+                    const url = URL.createObjectURL(blob);
+                    const image = document.createElement("img");
+                    image.src = url;
+                    image.alt = "book-cover";
+
+                    const spinner = entryCover.children.item(0);
+
+                    entryCover.removeChild(spinner);
+                    entryCover.appendChild(image);
+                }
+            });
+        </script>
+    </body>
+</html>

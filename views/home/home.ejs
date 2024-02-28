@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Book Notes</title>
+        <link rel="stylesheet" href="css/compiled/home.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://api.fontshare.com/v2/css?f[]=satoshi@500&display=swap"
+            rel="stylesheet">
+        <link rel="icon" href="icons/favicon.ico">
+    </head>
+    <body>
+        <header>
+            <%- include("components/navbar.ejs") %>
+            <%- include("components/title.ejs") %>
+        </header>
+        <main>
+            <% locals.data.forEach((entry) => { %>
+                <%- include("components/entry.ejs", { entry: entry }) %>
+            <% }); %>
+        </main>
+        <%- include("../footer/footer.ejs") %>
+        <script type="text/javascript">
+            //Fetch book cover images
+            window.addEventListener("load", () => {
+                const entryCovers = document.querySelectorAll(".entry-cover");
+                entryCovers.forEach(async (entryCover) => {
+                    const isbn = entryCover.getAttribute("id");
+                    const response = await fetch(`https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`);
+                    if (response.status === 404) {
+                        const spinner = entryCover.children.item(0);
+                        spinner.classList.remove("spinner");
+                        spinner.classList.add("error-message");
+                        spinner.textContent = "Whoops! Couldn't load image :(";
+                    }
+                    else {
+                        const blob = await response.blob();
+                        const url = URL.createObjectURL(blob);
+                        const image = document.createElement("img");
+                        image.src = url;
+                        image.alt = "book-cover";
+
+                        const spinner = entryCover.children.item(0);
+                        
+                        entryCover.removeChild(spinner);
+                        entryCover.appendChild(image);
+                    }
+                });
+            });
+
+            //Delete entries
+            document.querySelectorAll(".delete-button").forEach(async (button) => {
+                const id = button.classList[1];
+                button.addEventListener("click", async (event) => {
+                    await fetch(`/${id}`, {
+                        method: "DELETE"
+                    });
+                    window.location.reload();
+                });
+            });
+        </script>
+    </body>
+</html>

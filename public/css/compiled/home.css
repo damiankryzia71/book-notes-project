@@ -1,0 +1,157 @@
+body {
+  background-color: #3c3f57;
+}
+
+header nav {
+  display: flex;
+  gap: 15px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+header nav button {
+  background-color: #14a675;
+  border: none;
+  border-radius: 20px;
+  height: 2em;
+  cursor: pointer;
+  transition: 0.5s;
+  padding: 5px 15px;
+  color: #3c3f57;
+  font-family: "Satoshi", sans-serif;
+  font-size: 1.4rem;
+}
+header nav button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 2px 1px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 600px) {
+  header nav {
+    justify-content: center;
+  }
+}
+header .title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Dancing Script", cursive;
+  color: #14a675;
+}
+header .title h1 {
+  font-size: 10em;
+}
+header .title h2 {
+  transform: translate(10em, -5em);
+}
+@media (max-width: 700px) {
+  header .title h1 {
+    font-size: 8em;
+  }
+  header .title h2 {
+    transform: translateY(-5em);
+  }
+}
+@media (max-width: 550px) {
+  header .title h1 {
+    text-align: center;
+    font-size: 8em;
+  }
+}
+
+main {
+  display: grid;
+  grid-template-columns: minmax(20rem, 50rem);
+  justify-content: center;
+  gap: 3rem;
+}
+main .entry {
+  background-color: #3c3f57;
+  box-shadow: 0px 2px 2px 3px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template: auto/3fr 6fr;
+  row-gap: 1rem;
+  border-radius: 20px;
+  font-family: "Satoshi", sans-serif;
+}
+main .entry .entry-title {
+  grid-column: span 2;
+  place-self: center;
+  color: #14a675;
+  font-size: 2rem;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+main .entry .entry-title .entry-author {
+  font-size: 1.3rem;
+  align-self: center;
+}
+main .entry .entry-description {
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  padding: 1rem;
+}
+main .entry .entry-cover {
+  align-self: center;
+  justify-self: center;
+}
+main .entry .entry-cover img {
+  border-radius: 20px;
+}
+main .entry .entry-cover .spinner {
+  border: 8px solid #3c3f57;
+  border-top: 8px solid #14a675;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+main .entry .entry-cover .error-message {
+  text-align: center;
+  width: 100px;
+  font-family: "Satoshi", sans-serif;
+  color: #14a675;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+main .entry .entry-buttons {
+  grid-column: span 2;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+main .entry .entry-buttons button {
+  background-color: #14a675;
+  border: none;
+  border-radius: 20px;
+  height: 2em;
+  cursor: pointer;
+  transition: 0.5s;
+  padding: 5px 15px;
+  color: #3c3f57;
+  font-family: "Satoshi", sans-serif;
+  font-size: 1.4rem;
+}
+main .entry .entry-buttons button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 2px 1px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 600px) {
+  main .entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  main .entry .entry-title {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/*# sourceMappingURL=home.css.map */

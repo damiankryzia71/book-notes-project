@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= locals.data.title %></title>
+        <link rel="stylesheet" href="/css/compiled/new.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://api.fontshare.com/v2/css?f[]=satoshi@500&display=swap"
+            rel="stylesheet">
+        <link rel="icon" href="/icons/favicon.ico">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <form action="/" method="GET">
+                    <button type="submit" id="home-button">
+                        Home
+                    </button>
+                </form>
+            </nav>
+        </header>
+        <main>
+            <form action="/edit/<%=locals.data.id%>" method="POST">
+                <input type="text" class="new-title" placeholder="Title" name="title" value="<%= locals.data.title %>" required>
+                <textarea class="new-description" cols="30" rows="10" placeholder="Description" name="description" required><%= locals.data.description %></textarea>
+                <section class="new-info-group">
+                    <input type="text" class="new-info" placeholder="Author" name="author" value="<%= locals.data.author %>" required>
+                    <input type="text" class="new-info" placeholder="ISBN" name="isbn" pattern="\d*" value="<%= locals.data.isbn %>" required>
+                    <input type="text" class="new-info" placeholder="Pages" name="pages" pattern="\d*" value="<%= locals.data.pages %>" required>
+                </section>
+                <textarea class="new-notes" cols="30" rows="10" placeholder="Notes" name="notes"><%= locals.data.notes %></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+        <%- include("../footer/footer.ejs") %>
+    </body>
+</html>

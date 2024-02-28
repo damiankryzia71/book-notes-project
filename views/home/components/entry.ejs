@@ -1,0 +1,22 @@
+<section class="entry">
+    <article class="entry-title">
+        <%= locals.entry.title %>
+        <div class="entry-author">by <%= locals.entry.author %></div>
+    </article>
+    <article class="entry-cover" id="<%= locals.entry.isbn %>">
+        <div class="spinner"></div>
+    </article>
+    <article class="entry-description">
+        <%= locals.entry.description %>
+    </article>
+    <section class="entry-buttons">
+        <form action="/<%=locals.entry.id%>" method="GET">
+            <button class="details-button">
+                Details
+            </button>
+        </form>
+        <button class="delete-button <%= locals.entry.id %>">
+            Delete
+        </button>
+    </section>
+</section>
